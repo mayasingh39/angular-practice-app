@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-
+import { Todo } from '../model/todo.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,9 +9,8 @@ export class TodosService {
 
   constructor(private httpClient: HttpClient) { }
 
-  fetchTodos() : Observable<any>{
-    const url = 'https://jsonplaceholder.typicode.com/todos';
-    return this.httpClient.get(url).pipe(map((todos: any) => todos.filter((todo: any) => !todo.completed))) ;
-    // return this.httpClient.get(url) ;
+  getTodos() : Observable<Todo[]>{    
+    return this.httpClient.get<Todo[]>('https://jsonplaceholder.typicode.com/todos?_limit=10')
+    // .pipe(map((todos: any) => todos.filter((todo: any) => !todo.completed))) ;    
   }
 }

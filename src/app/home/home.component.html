@@ -1,4 +1,15 @@
-<h2>Completed Todos</h2>
-    <ul>
-      <li *ngFor="let todo of completedTodos">{{ todo.title }}</li>
-    </ul>
+
+@if (loader) {
+  <mat-progress-spinner></mat-progress-spinner>
+} @else {
+  <h2>Active Todos</h2>
+  <ul>
+    @for(todo of completedTodos; track todo.id) { 
+      @if(todo.completed){
+        <li [ngStyle]="{ 'color': todo.completed? 'green': 'black'}"> {{todo.title}}</li>
+      }
+    } @empty {
+      <p>No active todos</p>
+    }
+  </ul>
+}
